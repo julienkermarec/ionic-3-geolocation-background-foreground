@@ -40,7 +40,3 @@ And this version of cordova-plugin-mauron85-background-geolocation => ^3.0.0-alp
 * **KERMAREC Julien** - *Initial work* - [julienkermarec](https://github.com/julienkermarec/)
 
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
