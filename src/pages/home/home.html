@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ionic 3 Complete Geolocation
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div padding>
+    Background / Foreground Geolocation Mobile Application using Ionic 3 and
+    cordova-plugin-background-geolocation and cordova-plugin-background-mode
+    <p>
+      If you get lost, contact me on <a href="https://github.com/julienkermarec">github</a>.
+    </p>
+
+    <p>Click the button to start GPS tracking.</p>
+    <button *ngIf="!geoloc_interval" ion-button block (click)="startGeolocation()">
+      Start
+    </button>
+    <button *ngIf="geoloc_interval" ion-button block (click)="stopGeolocation()">
+      Stop
+    </button>
+    <p *ngIf="geoloc_interval && locations.length == 0">Waiting first location ...</p>
+  </div>
+  <ion-list>
+    <ion-item *ngFor="let location of locations">
+      <h2>{{location.date}}</h2>
+      <p>lng : {{location.data.longitude}} / lat : {{location.data.latitude}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

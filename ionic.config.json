@@ -1,0 +1,7 @@
+{
+  "name": "ionic-3-geolocation-background-foreground",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
