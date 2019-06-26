@@ -16,8 +16,9 @@ import { BackgroundMode } from "@ionic-native/background-mode";
 })
 export class HomePage {
   locations: any = [];
-  geoloc_interval:any;
-  interval_delay = 1000 * 60; // 1 minute
+  geoloc_interval: any;
+  interval_wakeup = 1000 * 60 * 1; // 1 minute - DO NOT EDIT, > 2 minutes phone sleep, < 30sec phone background process is killed
+  interval_delay = 1000 * 60 * 5; // 5 minute - EDIT HERE 
 
   config: BackgroundGeolocationConfig = {
     desiredAccuracy: 10,
@@ -43,7 +44,7 @@ export class HomePage {
   ionViewDidLoad() {
   }
 
-  stopGeolocation(){
+  stopGeolocation() {
     console.log("stopGeolocation")
     this.backgroundMode.disable();
     this.backgroundGeolocation.stop();
@@ -72,20 +73,26 @@ export class HomePage {
     // Interval
     this.geoloc_interval = setInterval(() => {
       this.backgroundGeolocation.start();
-    }, this.interval_delay);
+    }, this.interval_wakeup);
   }
 
   configure() {
+    let i = 1;
     this.backgroundGeolocation.configure(this.config)
       .then(() => {
         this.backgroundGeolocation.on(BackgroundGeolocationEvents.location)
           .subscribe((location: BackgroundGeolocationResponse) => {
-            this.zone.run(() => {
+            if (i % 5 == 0) {
               this.locations.push({ date: new Date().toISOString(), data: location });
-              this.backgroundGeolocation.stop();
               console.log('locations', this.locations);
-            });
-          })
+              // SEND YOUR LOCATION HERE
+            }
+            else {
+              console.log("wait more ...")
+            }
+            i++;
+            this.backgroundGeolocation.stop();
+          });
       })
   }
 }
